@@ -2,6 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../../../lib/supabase';
 import { useAuthStore } from '../../auth/store/authStore';
 import { useWorkoutStore } from '../store/workoutStore';
+import { rowToExercise } from '../../exercises/types';
 
 export function useWorkout() {
   const { user } = useAuthStore();
@@ -20,6 +21,39 @@ export function useWorkout() {
     if (error) throw error;
     store.startWorkout(data.id, routineId);
     return data.id;
+  };
+
+  const startWorkoutFromRoutine = async (routineId: string): Promise<string> => {
+    if (!user) throw new Error('Not authenticated');
+
+    const [workoutResult, exercisesResult] = await Promise.all([
+      supabase
+        .from('workouts')
+        .insert({ user_id: user.id, routine_id: routineId })
+        .select()
+        .single(),
+      supabase
+        .from('routine_exercises')
+        .select('order_index, exercise:exercises(*)')
+        .eq('routine_id', routineId)
+        .order('order_index'),
+    ]);
+
+    if (workoutResult.error) throw workoutResult.error;
+    if (exercisesResult.error) throw exercisesResult.error;
+
+    store.startWorkout(workoutResult.data.id, routineId);
+
+    const rows = exercisesResult.data as unknown as Array<{
+      order_index: number;
+      exercise: Parameters<typeof rowToExercise>[0];
+    }>;
+
+    for (const row of rows) {
+      store.addExercise(rowToExercise(row.exercise));
+    }
+
+    return workoutResult.data.id;
   };
 
   const finishWorkout = async (notes?: string): Promise<void> => {
@@ -65,6 +99,7 @@ export function useWorkout() {
   return {
     activeWorkout: store.activeWorkout,
     startWorkout,
+    startWorkoutFromRoutine,
     finishWorkout,
     cancelWorkout,
     addExercise: store.addExercise,

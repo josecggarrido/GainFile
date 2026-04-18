@@ -4,13 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 type IconName = React.ComponentProps<typeof Ionicons>['name'];
 
-function TabIcon({
-  name,
-  focused,
-}: {
-  name: IconName;
-  focused: boolean;
-}) {
+function TabIcon({ name, focused }: { name: IconName; focused: boolean }) {
   return (
     <Ionicons
       name={focused ? name : (`${name}-outline` as IconName)}
@@ -34,7 +28,7 @@ export default function AppLayout() {
         },
         tabBarActiveTintColor: '#F59E0B',
         tabBarInactiveTintColor: '#6B7280',
-        tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
+        tabBarLabelStyle: { fontSize: 10, fontWeight: '600' },
       }}
     >
       <Tabs.Screen
@@ -49,6 +43,13 @@ export default function AppLayout() {
         options={{
           title: 'Entrenar',
           tabBarIcon: ({ focused }) => <TabIcon name="barbell" focused={focused} />,
+        }}
+      />
+      <Tabs.Screen
+        name="routines"
+        options={{
+          title: 'Rutinas',
+          tabBarIcon: ({ focused }) => <TabIcon name="calendar" focused={focused} />,
         }}
       />
       <Tabs.Screen
