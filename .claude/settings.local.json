@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"from PIL import Image; print\\('pillow ok'\\)\")",
+      "Bash(python3)",
+      "Bash(npx expo-doctor *)",
+      "Bash(npm install *)",
+      "Bash(kill %1)",
+      "Bash(wait %1 cat /tmp/claude-1000/-home-garri-projects-GainFile/45e6400b-745d-41ee-8921-27be370ae0d3/tasks/bj21z483l.output)",
+      "Bash(npx expo *)",
+      "Bash(./node_modules/.bin/expo install *)",
+      "Bash(python3 -c ' *)",
+      "Bash(npx expo-doctor@latest)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('version:', d['version']\\)\")",
+      "Bash(npx tsc *)",
+      "Bash(xargs -I{} head -60 {})",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/expo/package.json'\\).version\\)\")",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/react-native/package.json'\\).version\\)\")",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/react/package.json'\\).version\\)\")",
+      "Bash(node -e 'console.log\\(require\\('\\\\''./node_modules/__TRACKED_VAR__/package.json'\\\\''\\).version\\)')",
+      "Bash(git init *)",
+      "Bash(git remote *)",
+      "Bash(git branch *)",
+      "Bash(git add *)"
+    ]
+  }
+}
