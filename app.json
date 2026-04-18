@@ -24,7 +24,12 @@
     },
     "web": {
       "bundler": "metro",
-      "output": "static"
+      "output": "static",
+      "shortName": "GainFile",
+      "description": "Registra tus entrenamientos de gimnasio",
+      "themeColor": "#F59E0B",
+      "backgroundColor": "#0F0F0F",
+      "favicon": "./assets/favicon.png"
     },
     "plugins": ["expo-router"],
     "experiments": {
